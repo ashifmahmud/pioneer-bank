@@ -30,7 +30,7 @@
       <div class="col-md-4 ">
         <div class="withdraw status">
           <h5>Withdraw</h5>
-          <h2>$00</h2>
+          <h2>$ <span id="currentWithdraw">00</span></h2>
         </div>
       </div>
       <div class="col-md-4 ">
@@ -81,8 +81,8 @@
            const depositNumber = getInputNumber("depositAmount");
           
 
-           updateSpanText("currentDeposit",depositNumber);
-           updateSpanText("currentBalance",depositNumber);
+           updateSpanText("currentDeposit",depositNumber,"depositAmount");
+           updateSpanText("currentBalance",depositNumber,"depositAmount");
 
            
          })
@@ -93,17 +93,22 @@
             
             const withdrawNumber = getInputNumber("withdrawAmount");
 
+            updateSpanText("currentWithdraw",withdrawNumber,"withdrawAmount");
+
+            updateSpanText("currentBalance",-Math.abs(withdrawNumber),"withdrawAmount");
+            
+
 
           })
 
           function getInputNumber(id){
-            const withdrawAmount = document.getElementById(id).value;
-            const withdrawNumber = parseFloat(withdrawAmount);
-            return withdrawNumber;
+            const Amount = document.getElementById(id).value;
+            const Number = parseFloat(Amount);
+            return Number;
           }
          
 
-         function updateSpanText(id, depositNumber,depositAmount){
+         function updateSpanText(id, depositNumber,Amount){
           const current = document.getElementById(id).innerText;
            const currentNumber = parseFloat(current);
 
@@ -113,7 +118,7 @@
 
            document.getElementById(id).innerText = totalDeposit;
 
-           document.getElementById("depositAmount").value = "";
+           document.getElementById(Amount).value = "";
            
 
          }
